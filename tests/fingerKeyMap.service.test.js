@@ -35,16 +35,24 @@ describe('Finger Key Map Service', function() {
 	});
 
 	describe('this.getListOfNearByKeys', function() {
-		it('no options should return all values from lowercase and uppercase input', function() {
+		it('no options should return all values from lowercase and uppercase input minus input', function() {
 			var nearbyKeys = FingerKeyMap.getListOfNearByKeys("q", testkeymap, {});
-
-			expect(nearbyKeys.sort()).toEqual(testkeymap["Q"].concat(testkeymap["q"]).sort());
+			expect(nearbyKeys.sort()).toEqual(["~","Q","A","`","1","a"].sort());
 		});
 
-		it('shiftMatch option should return all values just from input', function() {
+		it('shiftMatch option should return all values just from input minus input', function() {
 			var nearbyKeys = FingerKeyMap.getListOfNearByKeys("q", testkeymap, {shiftMatch:true});
+			expect(nearbyKeys.sort()).toEqual(["`", "1", "a"].sort());
+		});
 
-			expect(nearbyKeys.sort()).toEqual(testkeymap["q"].sort());
+		it('includeInput option should return all values from lower/upper case input', function() {
+			var nearbyKeys = FingerKeyMap.getListOfNearByKeys("a", testkeymap, {includeInput:true});
+			expect(nearbyKeys.sort()).toEqual(["`","1","q","a","~","Q","A"].sort());
+		});
+
+		it('shiftMatch and includeInput option should return all values from input', function() {
+			var nearbyKeys = FingerKeyMap.getListOfNearByKeys("A", testkeymap, {includeInput:true, shiftMatch:true});
+			expect(nearbyKeys.sort()).toEqual(["~","Q","A"].sort());
 		});
 	});
 });

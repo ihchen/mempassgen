@@ -68,7 +68,8 @@ angular.module("MemPassGen")
 	};
 
 	this.DEFAULT_OPTIONS = {
-		shiftMatch: false
+		shiftMatch: false,
+		includeInput: false,
 	}
 
 	this.convertFingerToKey = function(fingerMap) {
@@ -101,7 +102,7 @@ angular.module("MemPassGen")
 
 	this.getListOfNearByKeys = function(char, keyMap, options) {
 		if(char in keyMap) {
-			var validKeys =  keyMap[char];
+			var validKeys =  keyMap[char].slice();
 
 			if(!options.shiftMatch) {
 				if(char.charCodeAt() >= 97) {
@@ -110,6 +111,9 @@ angular.module("MemPassGen")
 				else {
 					validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
 				}
+			}
+			if(!options.includeInput) {
+				validKeys.splice(validKeys.indexOf(char), 1);					
 			}
 			return validKeys;
 		}

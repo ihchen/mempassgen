@@ -8,8 +8,8 @@ describe('Password Controller', function() {
 	beforeEach(inject(function($controller, _FingerKeyMap_){
 		FingerKeyMap = _FingerKeyMap_;
 		ctrl = $controller('PasswordController', {FingerKeyMap: FingerKeyMap});
-		getValidKeys = function(lowerChar, options=ctrl.options) {
-			return FingerKeyMap.getListOfNearByKeys(lowerChar, ctrl.keyMap, options);
+		getValidKeys = function(char, options=ctrl.options) {
+			return FingerKeyMap.getListOfNearByKeys(char, ctrl.keyMap, options);
 		}
 	}));
 
