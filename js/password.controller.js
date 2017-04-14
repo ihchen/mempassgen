@@ -21,14 +21,9 @@ angular.module('MemPassGen')
 	}
 
 	self.updatePassword = function(input) {
-		var changedInputs = {};
-		for(var i = 0; i < input.length; i++)
-			if(input[i] != prevInput[i])
-				changedInputs[i] = "";
-
 		var newPassword = "";
 		for(var i = 0; i < input.length; i++)
-			if(i in changedInputs)
+			if(input[i] != prevInput[i])
 				newPassword += getNearByKey(input[i]);
 			else
 				newPassword += self.password[i];
