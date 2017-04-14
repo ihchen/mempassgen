@@ -20,10 +20,10 @@ describe('Finger Key Map Service', function() {
 	}
 	var testkeymap = 
 	{
-		"Q": ["~","A"],
-		"q": ["`","1","a"],
-		"A": ["~","Q"],
-		"a": ["`","1","q"]
+		"Q": ["~","Q","A"],
+		"q": ["`","1","q","a"],
+		"A": ["~","Q","A"],
+		"a": ["`","1","q","a"]
 	}
 
 	beforeEach(inject(function(_FingerKeyMap_) {

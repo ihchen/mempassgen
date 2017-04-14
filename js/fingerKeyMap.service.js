@@ -82,7 +82,7 @@ angular.module("MemPassGen")
 				for(var i = 0; i < shiftKeys.chars.length; i++) {
 					keyMap[shiftKeys.chars[i]] = [].concat.call([], 
 						shiftKeys.symbols, 
-						(function() {var x = shiftKeys.chars.slice(); x.splice(i,1); return x;})()
+						shiftKeys.chars
 					)
 				}
 
@@ -90,7 +90,7 @@ angular.module("MemPassGen")
 					keyMap[notShiftKeys.chars[i]] = [].concat.call([],
 						notShiftKeys.symbols,
 						notShiftKeys.numbers,
-						(function() {var x = notShiftKeys.chars.slice(); x.splice(i,1); return x;})()
+						notShiftKeys.chars
 					)
 				}
 			}
