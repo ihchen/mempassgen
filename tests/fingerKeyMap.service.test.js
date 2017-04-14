@@ -9,26 +9,21 @@ describe('Finger Key Map Service', function() {
 		"finger": {
 			"shiftOn": {
 				"symbols":["~"],
-				"chars":["Q"]
+				"chars":["Q", "A"]
 			},
 			"shiftOff": {
 				"symbols":["`"],
 				"numbers":["1"],
-				"chars":["q"]
+				"chars":["q", "a"]
 			}
 		}
 	}
 	var testkeymap = 
 	{
-		"Q": {
-			"symbols": ["~"],
-			"chars": []
-		},
-		"q": {
-			"symbols": ["`"],
-			"numbers": ["1"],
-			"chars": []
-		}
+		"Q": ["~","A"],
+		"q": ["`","1","a"],
+		"A": ["~","Q"],
+		"a": ["`","1","q"]
 	}
 
 	beforeEach(inject(function(_FingerKeyMap_) {

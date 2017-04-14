@@ -76,18 +76,18 @@ angular.module("MemPassGen")
 				var notShiftKeys = fingerMap[finger].shiftOff;
 				// Map shift chars to symbols
 				for(var i = 0; i < shiftKeys.chars.length; i++) {
-					keyMap[shiftKeys.chars[i]] = {
-						"symbols": shiftKeys.symbols,
-						"chars": (function() {var x = shiftKeys.chars.slice(); x.splice(i,1); return x;})()
-					}
+					keyMap[shiftKeys.chars[i]] = [].concat.call([], 
+						shiftKeys.symbols, 
+						(function() {var x = shiftKeys.chars.slice(); x.splice(i,1); return x;})()
+					)
 				}
 				// Map not shift chars to symbols
 				for(var i = 0; i < notShiftKeys.chars.length; i++) {
-					keyMap[notShiftKeys.chars[i]] = {
-						"symbols": notShiftKeys.symbols,
-						"numbers": notShiftKeys.numbers,
-						"chars": (function() {var x = notShiftKeys.chars.slice(); x.splice(i,1); return x;})()
-					}
+					keyMap[notShiftKeys.chars[i]] = [].concat.call([],
+						notShiftKeys.symbols,
+						notShiftKeys.numbers,
+						(function() {var x = notShiftKeys.chars.slice(); x.splice(i,1); return x;})()
+					)
 				}
 			}
 		}
