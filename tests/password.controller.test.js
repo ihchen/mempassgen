@@ -1,3 +1,5 @@
+"use strict";
+
 describe('Password Controller', function() {
 	beforeEach(module("MemPassGen"));
 

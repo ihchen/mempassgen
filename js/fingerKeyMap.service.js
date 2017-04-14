@@ -95,16 +95,17 @@ angular.module("MemPassGen")
 		return keyMap;
 	}
 
-	this.getListOfNearByKeys = function(char, keyMap) {
+	this.getListOfNearByKeys = function(char, keyMap, options) {
 		if(char in keyMap) {
-			var validKeys =  [];
+			var validKeys =  keyMap[char];
 
-			validKeys = validKeys.concat(keyMap[char]);
-			if(char.charCodeAt() >= 97) {
-				validKeys = validKeys.concat(keyMap[char.toUpperCase()]);
-			}
-			else {
-				validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
+			if(!options.shiftMatch) {
+				if(char.charCodeAt() >= 97) {
+					validKeys = validKeys.concat(keyMap[char.toUpperCase()]);
+				}
+				else {
+					validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
+				}
 			}
 			return validKeys;
 		}

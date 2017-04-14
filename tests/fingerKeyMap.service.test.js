@@ -33,4 +33,18 @@ describe('Finger Key Map Service', function() {
 	it('it should convert finger to key map properly', function() {
 		expect(FingerKeyMap.convertFingerToKey(testfingermap)).toEqual(testkeymap);
 	});
-})
+
+	describe('this.getListOfNearByKeys', function() {
+		it('no options should return all values from lowercase and uppercase input', function() {
+			var nearbyKeys = FingerKeyMap.getListOfNearByKeys("q", testkeymap, {});
+
+			expect(nearbyKeys.sort()).toEqual(testkeymap["Q"].concat(testkeymap["q"]).sort());
+		});
+
+		it('shiftMatch option should return all values just from input', function() {
+			var nearbyKeys = FingerKeyMap.getListOfNearByKeys("q", testkeymap, {shiftMatch:true});
+
+			expect(nearbyKeys.sort()).toEqual(testkeymap["q"].sort());
+		});
+	});
+});
