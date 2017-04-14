@@ -33,14 +33,9 @@ describe('Finger Key Map Service', function() {
 
 	beforeEach(inject(function(_FingerKeyMap_) {
 		FingerKeyMap = _FingerKeyMap_;
-		FingerKeyMap.setFingerMap(testfingermap);
 	}));
 
-	it('should default to our test json file', function() {
-		expect(FingerKeyMap.fingerMap).toEqual(testfingermap);
-	});
-
-	it('key map should convert properly', function() {
-		expect(FingerKeyMap.keyMap).toEqual(testkeymap);
+	it('it should convert finger to key map properly', function() {
+		expect(FingerKeyMap.convertFingerToKey(testfingermap)).toEqual(testkeymap);
 	});
 })

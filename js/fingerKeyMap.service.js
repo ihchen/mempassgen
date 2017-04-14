@@ -1,6 +1,6 @@
 angular.module("MemPassGen")
 .service('FingerKeyMap', function() {
-	var defaultFingerMap = {
+	this.DEFAULT_FINGER_MAP = {
 		"Lpinky": {
 			"shiftOn": {
 				"symbols": ["~", "!"],
@@ -67,15 +67,7 @@ angular.module("MemPassGen")
 				"chars": ["p"] } }
 	};
 
-	this.fingerMap = defaultFingerMap;
-	this.keyMap = convertFingerToKey(this.fingerMap);
-
-	this.setFingerMap = function(fingerMap) {
-		this.fingerMap = fingerMap;
-		this.keyMap = convertFingerToKey(fingerMap);
-	};
-
-	function convertFingerToKey(fingerMap) {
+	this.convertFingerToKey = function(fingerMap) {
 		var keyMap = {};
 
 		for(var finger in fingerMap) {
