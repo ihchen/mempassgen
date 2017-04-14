@@ -1,1 +1,1 @@
-angular.module('MemPassGen', [])
+angular.module('MemPassGen', []);
