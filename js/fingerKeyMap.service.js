@@ -74,14 +74,14 @@ angular.module("MemPassGen")
 			if(fingerMap.hasOwnProperty(finger)) {
 				var shiftKeys = fingerMap[finger].shiftOn;
 				var notShiftKeys = fingerMap[finger].shiftOff;
-				// Map shift chars to symbols
+
 				for(var i = 0; i < shiftKeys.chars.length; i++) {
 					keyMap[shiftKeys.chars[i]] = [].concat.call([], 
 						shiftKeys.symbols, 
 						(function() {var x = shiftKeys.chars.slice(); x.splice(i,1); return x;})()
 					)
 				}
-				// Map not shift chars to symbols
+
 				for(var i = 0; i < notShiftKeys.chars.length; i++) {
 					keyMap[notShiftKeys.chars[i]] = [].concat.call([],
 						notShiftKeys.symbols,
@@ -93,5 +93,21 @@ angular.module("MemPassGen")
 		}
 
 		return keyMap;
-	};
+	}
+
+	this.getListOfNearByKeys = function(char, keyMap) {
+		if(char in keyMap) {
+			var validKeys =  [];
+
+			validKeys = validKeys.concat(keyMap[char]);
+			if(char.charCodeAt() >= 97) {
+				validKeys = validKeys.concat(keyMap[char.toUpperCase()]);
+			}
+			else {
+				validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
+			}
+			return validKeys;
+		}
+		else return undefined;
+	}
 });

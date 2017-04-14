@@ -6,6 +6,10 @@ angular.module('MemPassGen')
 	self.keyMap = FingerKeyMap.convertFingerToKey(self.fingerMap);
 
 	self.password = '';
+	/* Options
+		shiftMatch
+		include letters
+	*/
 
 	var prevInput = '';
 
@@ -32,23 +36,7 @@ angular.module('MemPassGen')
 	}
 
 	function getNearByKey(char) {
-		var validKeys = getListOfNearByKeys(char, self.keyMap);
+		var validKeys = FingerKeyMap.getListOfNearByKeys(char, self.keyMap);
 		return validKeys[Math.round(Math.random()*(validKeys.length-1))];
-	}
-
-	function getListOfNearByKeys(char, keyMap) {
-		if(char in keyMap) {
-			var validKeys =  [];
-
-			validKeys = validKeys.concat(keyMap[char]);
-			if(char.charCodeAt() >= 97) {
-				validKeys = validKeys.concat(keyMap[char.toUpperCase()]);
-			}
-			else {
-				validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
-			}
-			return validKeys;
-		}
-		else return undefined;
 	}
 })
