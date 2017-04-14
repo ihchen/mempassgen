@@ -9,7 +9,7 @@ describe('Password Controller', function() {
 		FingerKeyMap = _FingerKeyMap_;
 		ctrl = $controller('PasswordController', {FingerKeyMap: FingerKeyMap});
 		getValidKeys = function(lowerChar) {
-			return ctrl.keyMap[lowerChar].concat(ctrl.keyMap[lowerChar.toUpperCase()]);
+			return FingerKeyMap.getListOfNearByKeys(lowerChar, ctrl.keyMap, ctrl.options);
 		}
 	}));
 
@@ -29,6 +29,12 @@ describe('Password Controller', function() {
 			for(var i = 0; i < userInput.length; i++) {
 				expect(getValidKeys(userInput[i])).toContain(ctrl.password[i]);
 			}
+		});
+
+		it('should return input if the input was not in keymap', function() {
+			userInput = "#";
+			ctrl.generateMemorablePassword(userInput);
+			expect(ctrl.password).toBe(userInput);
 		});
 	});
 
