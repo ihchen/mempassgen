@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MemPassGen</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<style>
+	[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	  display: none !important;
+	}
+	</style>
+</head>
+<body ng-app="MemPassGen" ng-controller="PasswordController as pwc">
+	<div id="header">
+		<h1>MemPassGen</h1>
+	</div>
+	<div id="body">
+		<div id="description">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</div>
+		<div id="content">
+			<div id="userInput">
+				<input type="text" ng-model="pwc.userInput" ng-change="pwc.updatePassword(pwc.userInput)" />
+			</div>
+			<div id="passwordResult">
+				<span ng-bind="pwc.password"></span>
+			</div>
+			<div id="zxcvbnResult">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+		</div>
+	</div>
+
+	<script src="lib/angular.js"></script>
+	<script>angular.module("MemPassGen", []);</script>
+	<script src="js/password.controller.js"></script>
+	<script src="js/fingerKeyMap.service.js"></script>
+</body>
+</html>

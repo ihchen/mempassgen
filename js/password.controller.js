@@ -29,7 +29,8 @@ angular.module('MemPassGen')
 			else
 				newPassword += self.password[i];
 
-		self.password = newPassword;			
+		self.password = newPassword;
+		prevInput = input;		
 	}
 
 	function getNearByKey(char) {
@@ -39,4 +40,4 @@ angular.module('MemPassGen')
 		else
 			return char;
 	}
-})
+});
