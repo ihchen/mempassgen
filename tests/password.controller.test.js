@@ -8,8 +8,8 @@ describe('Password Controller', function() {
 	beforeEach(inject(function($controller, _FingerKeyMap_){
 		FingerKeyMap = _FingerKeyMap_;
 		ctrl = $controller('PasswordController', {FingerKeyMap: FingerKeyMap});
-		getValidKeys = function(lowerChar) {
-			return FingerKeyMap.getListOfNearByKeys(lowerChar, ctrl.keyMap, ctrl.options);
+		getValidKeys = function(lowerChar, options=ctrl.options) {
+			return FingerKeyMap.getListOfNearByKeys(lowerChar, ctrl.keyMap, options);
 		}
 	}));
 
@@ -26,15 +26,21 @@ describe('Password Controller', function() {
 		});
 
 		it('should generate a valid password based on the keymap', function() {
-			for(var i = 0; i < userInput.length; i++) {
+			for(var i = 0; i < userInput.length; i++)
 				expect(getValidKeys(userInput[i])).toContain(ctrl.password[i]);
-			}
 		});
 
 		it('should return input if the input was not in keymap', function() {
 			userInput = "#";
 			ctrl.generateMemorablePassword(userInput);
 			expect(ctrl.password).toBe(userInput);
+		});
+
+		it('should return shifted or not shifted keys based on input if shiftMatch set', function() {
+			ctrl.options.shiftMatch = true;
+			ctrl.generateMemorablePassword(userInput);
+			for(var i = 0; i < userInput.length; i++)
+				expect(getValidKeys(userInput[i], {shiftMatch: true})).toContain(ctrl.password[i]);
 		});
 	});
 

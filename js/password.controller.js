@@ -6,9 +6,7 @@ angular.module('MemPassGen')
 	self.keyMap = FingerKeyMap.convertFingerToKey(self.fingerMap);
 
 	self.password = '';
-	self.options = {
-		shiftMatch: false
-	};
+	self.options = FingerKeyMap.DEFAULT_OPTIONS;
 
 	var prevInput = '';
 
