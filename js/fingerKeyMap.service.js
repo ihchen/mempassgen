@@ -67,6 +67,10 @@ angular.module("MemPassGen")
 				"chars": ["p"] } }
 	};
 
+	this.DEFAULT_OPTIONS = {
+		shiftMatch: false
+	}
+
 	this.convertFingerToKey = function(fingerMap) {
 		var keyMap = {};
 
