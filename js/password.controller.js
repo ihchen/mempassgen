@@ -18,7 +18,7 @@ angular.module('MemPassGen')
 	}
 
 	self.updatePassword = function(input) {
-
+		self.password = "hahaha";
 	}
 
 	function getNearByKey(char) {
