@@ -7,6 +7,8 @@ angular.module('MemPassGen')
 
 	self.password = '';
 
+	var prevInput = '';
+
 	self.generateMemorablePassword = function(input) {
 		var password = '';
 		
@@ -15,10 +17,23 @@ angular.module('MemPassGen')
 		}
 
 		self.password = password;
+		prevInput = input;
 	}
 
 	self.updatePassword = function(input) {
-		self.password = "hahaha";
+		var changedInputs = {};
+		for(var i = 0; i < input.length; i++)
+			if(input[i] != prevInput[i])
+				changedInputs[i] = "";
+
+		var newPassword = "";
+		for(var i = 0; i < input.length; i++)
+			if(i in changedInputs)
+				newPassword += getNearByKey(input[i]);
+			else
+				newPassword += self.password[i];
+
+		self.password = newPassword;			
 	}
 
 	function getNearByKey(char) {
