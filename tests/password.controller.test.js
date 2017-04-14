@@ -8,7 +8,29 @@ describe('Password Controller', function() {
 		controller = $controller('PasswordController', {FingerKeyMap: FingerKeyMap});
 	}));
 
-	it('returns valid nearby keys', function() {
-		expect(controller.getListOfNearByKeys('s', controller.keyMap).sort()).toEqual(['x','w','2','@','W','X'].sort())
+	describe('generateMemorablePassword', function() {
+		var userInput;
+
+		beforeEach(function() {
+			userInput = "thisisatest";
+			controller.generateMemorablePassword(userInput);
+		});
+
+		it('should generate a password of the same length as the input', function() {
+			expect(controller.password.length).toEqual(userInput.length);
+		});
+
+		it('should generate a valid password based on the keymap', function() {
+			for(var i = 0; i < userInput.length; i++) {
+				expect(controller.keyMap[userInput[i]].concat(controller.keyMap[userInput[i].toUpperCase()]))
+					.toContain(controller.password[i]);
+			}
+		});
 	});
+
+	// describe('self.updatePass', function() {
+	// 	it('should only append new keys if user added more input', function() {
+
+	// 	});
+	// });
 });

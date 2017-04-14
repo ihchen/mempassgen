@@ -6,19 +6,36 @@ angular.module('MemPassGen')
 	self.keyMap = FingerKeyMap.convertFingerToKey(self.fingerMap);
 
 	self.password = '';
-	self.oldInput = '';
 
-	this.getListOfNearByKeys = function getListOfNearByKeys(char, keyMap) {
+	self.generateMemorablePassword = function(input) {
+		var password = '';
+		
+		for(var i = 0; i < input.length; i++) {
+			password += getNearByKey(input[i]);
+		}
+
+		self.password = password;
+	}
+
+	self.updatePassword = function(input) {
+
+	}
+
+	function getNearByKey(char) {
+		var validKeys = getListOfNearByKeys(char, self.keyMap);
+		return validKeys[Math.round(Math.random()*(validKeys.length-1))];
+	}
+
+	function getListOfNearByKeys(char, keyMap) {
 		if(char in keyMap) {
 			var validKeys =  [];
 
-			validKeys = validKeys.concat(keyMap[char].symbols).concat(keyMap[char].chars);
+			validKeys = validKeys.concat(keyMap[char]);
 			if(char.charCodeAt() >= 97) {
-				validKeys = validKeys.concat(keyMap[char.toUpperCase()].symbols).concat(keyMap[char.toUpperCase()].chars);
-				validKeys = validKeys.concat(keyMap[char].numbers);
+				validKeys = validKeys.concat(keyMap[char.toUpperCase()]);
 			}
 			else {
-				validKeys = validKeys.concat(keyMap[char.toLowerCase()].symbols).concat(keyMap[char.toLowerCase()].chars).concat(keyMap[char.toLowerCase()].numbers);
+				validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
 			}
 			return validKeys;
 		}
