@@ -1,5 +1,5 @@
 angular.module('MemPassGen')
-.controller('PasswordController', function(FingerKeyMap) {
+.controller('PasswordController', function(FingerKeyMap, zxcvbn) {
 	var self = this;
 
 	self.fingerMap = FingerKeyMap.DEFAULT_FINGER_MAP;
@@ -7,18 +7,19 @@ angular.module('MemPassGen')
 
 	self.password = '';
 	self.options = FingerKeyMap.DEFAULT_OPTIONS;
+	self.zxcvbnOnInput = {};
+	self.zxcvbnOnPassword = {};
 
 	var prevInput = '';
 
 	self.generatePassword = function(input) {
-		var password = '';
+		var newPassword = '';
 		
 		for(var i = 0; i < input.length; i++) {
-			password += getNearByKey(input[i]);
+			newPassword += getNearByKey(input[i]);
 		}
 
-		self.password = password;
-		prevInput = input;
+		updateModels(input, newPassword);
 	}
 
 	self.updatePassword = function(input) {
@@ -29,8 +30,12 @@ angular.module('MemPassGen')
 			else
 				newPassword += self.password[i];
 
-		self.password = newPassword;
-		prevInput = input;		
+		updateModels(input, newPassword);
+	}
+
+	function updateModels(input, password) {
+		self.password = password;
+		prevInput = input;
 	}
 
 	function getNearByKey(char) {
