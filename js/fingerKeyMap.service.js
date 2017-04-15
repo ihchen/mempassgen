@@ -124,7 +124,7 @@ angular.module("MemPassGen")
 
 	this.DEFAULT_OPTIONS = {
 		shiftMatch: false,
-		includeInput: false,
+		includeInput: true,
 		closeProx: false
 	}
 
@@ -159,9 +159,11 @@ angular.module("MemPassGen")
 	this.getListOfNearByKeys = function(char, keyMap, options) {
 		if(char in keyMap) {
 			var validKeys =  keyMap[char].slice();
+			var closeProxKeys;
 
 			if(!options.shiftMatch) {
 				var toggleCaseChar;
+
 				if(char.charCodeAt() >= 97) {
 					toggleCaseChar = char.toUpperCase();
 				}
@@ -169,9 +171,27 @@ angular.module("MemPassGen")
 					toggleCaseChar = char.toLowerCase();
 				}
 				validKeys = validKeys.concat(keyMap[toggleCaseChar]);
+				if(options.closeProx) {
+					closeProxKeys = PROXIMITY_MAP[char].concat(PROXIMITY_MAP[toggleCaseChar]);
+				}
 			}
 			if(!options.includeInput) {
 				validKeys.splice(validKeys.indexOf(char), 1);					
+			}
+			if(options.closeProx) {
+				if(closeProxKeys == undefined) {
+					closeProxKeys = PROXIMITY_MAP[char];
+				}
+				console.log(validKeys," ",closeProxKeys);
+				for(var i = 0; i < validKeys.length; i++) {
+					var valid = false;
+					for(var j = 0; j < closeProxKeys.length; j++) {
+						if(validKeys[i] == closeProxKeys[j])
+							valid = true;
+					}
+					if(!valid)
+						validKeys.splice(i--, 1);
+				}
 			}
 			return validKeys;
 		}
