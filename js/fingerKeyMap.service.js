@@ -164,31 +164,27 @@ angular.module("MemPassGen")
 			if(!options.shiftMatch) {
 				var toggleCaseChar;
 
-				if(char.charCodeAt() >= 97) {
-					toggleCaseChar = char.toUpperCase();
-				}
-				else {
-					toggleCaseChar = char.toLowerCase();
-				}
+				if(char.charCodeAt() >= 97) toggleCaseChar = char.toUpperCase();
+				else toggleCaseChar = char.toLowerCase();
+
 				validKeys = validKeys.concat(keyMap[toggleCaseChar]);
-				if(options.closeProx) {
+				if(options.closeProx)
 					closeProxKeys = PROXIMITY_MAP[char].concat(PROXIMITY_MAP[toggleCaseChar]);
-				}
 			}
 			if(!options.includeInput) {
 				validKeys.splice(validKeys.indexOf(char), 1);					
 			}
 			if(options.closeProx) {
-				if(closeProxKeys == undefined) {
+				if(closeProxKeys == undefined)
 					closeProxKeys = PROXIMITY_MAP[char];
-				}
-				console.log(validKeys," ",closeProxKeys);
+
+				var valid;
 				for(var i = 0; i < validKeys.length; i++) {
-					var valid = false;
-					for(var j = 0; j < closeProxKeys.length; j++) {
+					valid = false;
+					for(var j = 0; j < closeProxKeys.length; j++)
 						if(validKeys[i] == closeProxKeys[j])
 							valid = true;
-					}
+
 					if(!valid)
 						validKeys.splice(i--, 1);
 				}
