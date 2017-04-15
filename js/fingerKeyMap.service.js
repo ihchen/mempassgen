@@ -161,12 +161,14 @@ angular.module("MemPassGen")
 			var validKeys =  keyMap[char].slice();
 
 			if(!options.shiftMatch) {
+				var toggleCaseChar;
 				if(char.charCodeAt() >= 97) {
-					validKeys = validKeys.concat(keyMap[char.toUpperCase()]);
+					toggleCaseChar = char.toUpperCase();
 				}
 				else {
-					validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
+					toggleCaseChar = char.toLowerCase();
 				}
+				validKeys = validKeys.concat(keyMap[toggleCaseChar]);
 			}
 			if(!options.includeInput) {
 				validKeys.splice(validKeys.indexOf(char), 1);					
