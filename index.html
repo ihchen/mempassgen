@@ -10,39 +10,58 @@
 	</style>
 </head>
 <body ng-app="MemPassGen" ng-controller="PasswordController as pwc">
-	<div id="header">
-		<h1>MemPassGen</h1>
-	</div>
+	<header id="header">
+		<h1 id="title">MemPassGen</h1>
+		<p id="description">
+			MemPassGen takes your input and converts the inputs into near by characters and symbols based on where your fingers are on the keyboard. This allows you to create a more secure password that should feel the same as typing your original input.
+		</p>
+	</header>
 	<div id="body">
-		<div id="description">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</div>
 		<div id="content">
 			<div id="userInput">
 				<input type="text" ng-model="pwc.userInput" ng-change="pwc.updatePassword(pwc.userInput)" />
+				<button type="button" ng-click="pwc.generatePassword(pwc.userInput)">Generate Another Password</button>
 			</div>
 			<div id="passwordResult">
 				<span ng-bind="pwc.password"></span>
 			</div>
+			<div id="options">
+				<input type="checkbox" ng-model="pwc.options.shiftMatch" />Shift Match <br />
+				<input type="checkbox" ng-model="pwc.options.includeInput" />Include Input <br />
+			</div>
 			<div id="zxcvbnResult">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				<div id="userInputResult" class="zxcvbn-column" ng-repeat="(key, zxcvbn) in {1: pwc.zxcvbnOnInput, 2: pwc.zxcvbnOnPassword}">
+					<ul ng-show="pwc.userInput">
+						<li>Guesses: {{zxcvbn.guesses}}</li>
+						<ul>
+							Guess times:
+							<li>100/hour: {{zxcvbn.crack_times_display.online_throttling_100_per_hour}}</li>
+							<li>10/second: {{zxcvbn.crack_times_display.online_no_throttling_10_per_second}}</li>
+							<li>10k/second: {{zxcvbn.crack_times_display.offline_slow_hashing_1e4_per_second}}</li>
+							<li>10B/second: {{zxcvbn.crack_times_display.offline_fast_hashing_1e10_per_second}}</li>
+						</ul>
+						<li>Score: {{zxcvbn.score}}</li>
+						<li>Warning: {{zxcvbn.feedback.warning}}</li>
+						<li>Suggestions: {{zxcvbn.feedback.suggestions}}</li>
+						<li>Runtime: {{zxcvbn.calc_time}}</li>
+					</ul>
+					<div ng-repeat="seq in zxcvbn.sequence">
+					<ul>
+						<li ng-repeat="(key, value) in seq">
+							{{key}}: {{value}}
+						</li>
+					</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<script src="lib/angular.js"></script>
+	<script src="lib/zxcvbn.js"></script>
 	<script>angular.module("MemPassGen", []);</script>
 	<script src="js/password.controller.js"></script>
 	<script src="js/fingerKeyMap.service.js"></script>
+	<script src="js/zxcvbn.service.js"></script>
 </body>
 </html>

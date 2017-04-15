@@ -36,6 +36,8 @@ angular.module('MemPassGen')
 	function updateModels(input, password) {
 		self.password = password;
 		prevInput = input;
+		self.zxcvbnOnInput = zxcvbn(input);
+		self.zxcvbnOnPassword = zxcvbn(password);
 	}
 
 	function getNearByKey(char) {
