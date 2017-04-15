@@ -1,58 +1,5 @@
 angular.module("MemPassGen")
 .service('FingerKeyMap', function() {
-	this.DEFAULT_OPTIONS = {
-		shiftMatch: false,
-		includeInput: false
-	}
-
-	this.convertFingerToKey = function(fingerMap) {
-		var keyMap = {};
-
-		for(var finger in fingerMap) {
-			if(fingerMap.hasOwnProperty(finger)) {
-				var shiftKeys = fingerMap[finger].shiftOn;
-				var notShiftKeys = fingerMap[finger].shiftOff;
-
-				for(var i = 0; i < shiftKeys.chars.length; i++) {
-					keyMap[shiftKeys.chars[i]] = [].concat.call([], 
-						shiftKeys.symbols, 
-						shiftKeys.chars
-					)
-				}
-
-				for(var i = 0; i < notShiftKeys.chars.length; i++) {
-					keyMap[notShiftKeys.chars[i]] = [].concat.call([],
-						notShiftKeys.symbols,
-						notShiftKeys.numbers,
-						notShiftKeys.chars
-					)
-				}
-			}
-		}
-
-		return keyMap;
-	}
-
-	this.getListOfNearByKeys = function(char, keyMap, options) {
-		if(char in keyMap) {
-			var validKeys =  keyMap[char].slice();
-
-			if(!options.shiftMatch) {
-				if(char.charCodeAt() >= 97) {
-					validKeys = validKeys.concat(keyMap[char.toUpperCase()]);
-				}
-				else {
-					validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
-				}
-			}
-			if(!options.includeInput) {
-				validKeys.splice(validKeys.indexOf(char), 1);					
-			}
-			return validKeys;
-		}
-		else return undefined;
-	}
-
 	this.DEFAULT_FINGER_MAP = {
 		"Lpinky": {
 			"shiftOn": {
@@ -120,58 +67,112 @@ angular.module("MemPassGen")
 				"chars": ["p"] } }
 	};
 
-	this.PROXIMITY_MAP = {
-		'A': ['Z','S','W','Q'],
-		'B': ['V','G','H','N'],
-		'C': ['X','D','F','V'],
-		'D': ['S','E','R','F','C','X'],
-		'E': ['W','S','D','R','#','$'],
-		'F': ['D','C','V','G','T','R'],
-		'G': ['F','V','B','H','Y','T'],
-		'H': ['G','B','N','J','U','Y'],
-		'I': ['U','J','K','O','*','('],
-		'J': ['H','N','M','K','U','I'],
-		'K': ['J','M','I','O','L','<'],
-		'L': ['K','O','P','<','>',':'],
-		'M': ['N','J','K','<'],
-		'N': ['B','H','J','M'],
-		'O': ['I','K','L','P','(',')'],
-		'P': ['O','L',':','{',')','_'],
-		'Q': ['A','W','!','@'],
-		'R': ['E','D','F','T','$','%'],
-		'S': ['A','Z','X','D','E','W'],
-		'T': ['R','F','G','Y','%','^'],
-		'U': ['Y','H','J','I','&','*'],
-		'V': ['C','F','G','B'],
-		'W': ['Q','A','S','E','@','#'],
-		'X': ['Z','S','D','C'],
-		'Y': ['T','G','H','U','^','&'],
-		'Z': ['A','S','X'],
-		'a': ['z', 's', 'w', 'q'],
-		'b': ['v', 'g', 'h', 'n'],
-		'c': ['x', 'd', 'f', 'v'],
-		'd': ['s', 'e', 'r', 'f', 'c', 'x'],
-		'e': ['w', 's', 'd', 'r', '3', '4'],
-		'f': ['d', 'c', 'v', 'g', 't', 'r'],
-		'g': ['f', 'v', 'b', 'h', 'y', 't'],
-		'h': ['g', 'b', 'n', 'j', 'u', 'y'],
-		'i': ['u', 'j', 'k', 'o', '8', '9'],
-		'j': ['h', 'n', 'm', 'k', 'u', 'i'],
-		'k': ['j', 'm', 'i', 'o', 'l', ','],
-		'l': ['k', 'o', 'p', ',', '.', ';'],
-		'm': ['n', 'j', 'k', ','],
-		'n': ['b', 'h', 'j', 'm'],
-		'o': ['i', 'k', 'l', 'p', '9', '0'],
-		'p': ['o', 'l', ';', '[', '0', '-'],
-		'q': ['a', 'w', '1', '2'],
-		'r': ['e', 'd', 'f', 't', '4', '5'],
-		's': ['a', 'z', 'x', 'd', 'e', 'w'],
-		't': ['r', 'f', 'g', 'y', '5', '6'],
-		'u': ['y', 'h', 'j', 'i', '7', '8'],
-		'v': ['c', 'f', 'g', 'b'],
-		'w': ['q', 'a', 's', 'e', '2', '3'],
-		'x': ['z', 's', 'd', 'c'],
-		'y': ['t', 'g', 'h', 'u', '6', '7'],
-		'z': ['a', 's', 'x']
+	var PROXIMITY_MAP = {
+		'A': ['A','Z','S','W','Q'],
+		'B': ['B','V','G','H','N'],
+		'C': ['C','X','D','F','V'],
+		'D': ['D','S','E','R','F','C','X'],
+		'E': ['E','W','S','D','R','#','$'],
+		'F': ['F','D','C','V','G','T','R'],
+		'G': ['G','F','V','B','H','Y','T'],
+		'H': ['H','G','B','N','J','U','Y'],
+		'I': ['I','U','J','K','O','*','('],
+		'J': ['J','H','N','M','K','U','I'],
+		'K': ['K','J','M','I','O','L','<'],
+		'L': ['L','K','O','P','<','>',':'],
+		'M': ['M','N','J','K','<'],
+		'N': ['N','B','H','J','M'],
+		'O': ['O','I','K','L','P','(',')'],
+		'P': ['P','O','L',':','{',')','_'],
+		'Q': ['Q','A','W','!','@'],
+		'R': ['R','E','D','F','T','$','%'],
+		'S': ['S','A','Z','X','D','E','W'],
+		'T': ['T','R','F','G','Y','%','^'],
+		'U': ['U','Y','H','J','I','&','*'],
+		'V': ['V','C','F','G','B'],
+		'W': ['W','Q','A','S','E','@','#'],
+		'X': ['X','Z','S','D','C'],
+		'Y': ['Y','T','G','H','U','^','&'],
+		'Z': ['Z','A','S','X'],
+		'a': ['a','z', 's', 'w', 'q'],
+		'b': ['b','v', 'g', 'h', 'n'],
+		'c': ['c','x', 'd', 'f', 'v'],
+		'd': ['d','s', 'e', 'r', 'f', 'c', 'x'],
+		'e': ['e','w', 's', 'd', 'r', '3', '4'],
+		'f': ['f','d', 'c', 'v', 'g', 't', 'r'],
+		'g': ['g','f', 'v', 'b', 'h', 'y', 't'],
+		'h': ['h','g', 'b', 'n', 'j', 'u', 'y'],
+		'i': ['i','u', 'j', 'k', 'o', '8', '9'],
+		'j': ['j','h', 'n', 'm', 'k', 'u', 'i'],
+		'k': ['k','j', 'm', 'i', 'o', 'l', ','],
+		'l': ['l','k', 'o', 'p', ',', '.', ';'],
+		'm': ['m','n', 'j', 'k', ','],
+		'n': ['n','b', 'h', 'j', 'm'],
+		'o': ['o','i', 'k', 'l', 'p', '9', '0'],
+		'p': ['p','o', 'l', ';', '[', '0', '-'],
+		'q': ['q','a', 'w', '1', '2'],
+		'r': ['r','e', 'd', 'f', 't', '4', '5'],
+		's': ['s','a', 'z', 'x', 'd', 'e', 'w'],
+		't': ['t','r', 'f', 'g', 'y', '5', '6'],
+		'u': ['u','y', 'h', 'j', 'i', '7', '8'],
+		'v': ['v','c', 'f', 'g', 'b'],
+		'w': ['w','q', 'a', 's', 'e', '2', '3'],
+		'x': ['x','z', 's', 'd', 'c'],
+		'y': ['y','t', 'g', 'h', 'u', '6', '7'],
+		'z': ['z','a', 's', 'x']
 	};
+
+	this.DEFAULT_OPTIONS = {
+		shiftMatch: false,
+		includeInput: false,
+		closeProx: false
+	}
+
+	this.convertFingerToKey = function(fingerMap) {
+		var keyMap = {};
+
+		for(var finger in fingerMap) {
+			if(fingerMap.hasOwnProperty(finger)) {
+				var shiftKeys = fingerMap[finger].shiftOn;
+				var notShiftKeys = fingerMap[finger].shiftOff;
+
+				for(var i = 0; i < shiftKeys.chars.length; i++) {
+					keyMap[shiftKeys.chars[i]] = [].concat.call([], 
+						shiftKeys.symbols, 
+						shiftKeys.chars
+					)
+				}
+
+				for(var i = 0; i < notShiftKeys.chars.length; i++) {
+					keyMap[notShiftKeys.chars[i]] = [].concat.call([],
+						notShiftKeys.symbols,
+						notShiftKeys.numbers,
+						notShiftKeys.chars
+					)
+				}
+			}
+		}
+
+		return keyMap;
+	}
+
+	this.getListOfNearByKeys = function(char, keyMap, options) {
+		if(char in keyMap) {
+			var validKeys =  keyMap[char].slice();
+
+			if(!options.shiftMatch) {
+				if(char.charCodeAt() >= 97) {
+					validKeys = validKeys.concat(keyMap[char.toUpperCase()]);
+				}
+				else {
+					validKeys = validKeys.concat(keyMap[char.toLowerCase()]);
+				}
+			}
+			if(!options.includeInput) {
+				validKeys.splice(validKeys.indexOf(char), 1);					
+			}
+			return validKeys;
+		}
+		else return undefined;
+	}
 });
