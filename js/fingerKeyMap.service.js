@@ -170,6 +170,8 @@ angular.module("MemPassGen")
 				validKeys = validKeys.concat(keyMap[toggleCaseChar]);
 				if(options.closeProx)
 					closeProxKeys = PROXIMITY_MAP[char].concat(PROXIMITY_MAP[toggleCaseChar]);
+				if(!options.includeInput)
+					validKeys.splice(validKeys.indexOf(toggleCaseChar), 1);
 			}
 			if(!options.includeInput) {
 				validKeys.splice(validKeys.indexOf(char), 1);					
