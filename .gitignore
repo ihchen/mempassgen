@@ -1,2 +1,4 @@
 node_modules
 package.json
+karma.conf.js
+tests
