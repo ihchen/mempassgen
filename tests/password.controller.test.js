@@ -13,12 +13,12 @@ describe('Password Controller', function() {
 		}
 	}));
 
-	describe('generateMemorablePassword', function() {
+	describe('generatePassword', function() {
 		var userInput;
 
 		beforeEach(function() {
 			userInput = "thisisatest";
-			ctrl.generateMemorablePassword(userInput);
+			ctrl.generatePassword(userInput);
 		});
 
 		it('should generate a password of the same length as the input', function() {
@@ -32,13 +32,13 @@ describe('Password Controller', function() {
 
 		it('should return input if the input was not in keymap', function() {
 			userInput = "#";
-			ctrl.generateMemorablePassword(userInput);
+			ctrl.generatePassword(userInput);
 			expect(ctrl.password).toBe(userInput);
 		});
 
 		it('should return shifted or not shifted keys based on input if shiftMatch set', function() {
 			ctrl.options.shiftMatch = true;
-			ctrl.generateMemorablePassword(userInput);
+			ctrl.generatePassword(userInput);
 			for(var i = 0; i < userInput.length; i++)
 				expect(getValidKeys(userInput[i], {shiftMatch: true})).toContain(ctrl.password[i]);
 		});
@@ -49,7 +49,7 @@ describe('Password Controller', function() {
 
 		beforeEach(function() {
 			userInput = "thisisa";
-			ctrl.generateMemorablePassword(userInput);
+			ctrl.generatePassword(userInput);
 		});
 
 		describe('Password should be same length as input', function() {

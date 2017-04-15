@@ -10,7 +10,7 @@ angular.module('MemPassGen')
 
 	var prevInput = '';
 
-	self.generateMemorablePassword = function(input) {
+	self.generatePassword = function(input) {
 		var password = '';
 		
 		for(var i = 0; i < input.length; i++) {
