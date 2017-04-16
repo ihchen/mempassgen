@@ -11,6 +11,7 @@ angular.module('MemPassGen')
 	self.zxcvbnOnPassword = {};
 
 	var prevInput = '';
+	var tempFingerMap = {};
 
 	self.generatePassword = function(input) {
 		var newPassword = '';
@@ -31,6 +32,11 @@ angular.module('MemPassGen')
 				newPassword += self.password[i];
 
 		updateModels(input, newPassword);
+	}
+
+	self.loadFingerMap = function(fingerMap) {
+		self.fingerMap = fingerMap;
+		self.keyMap = FingerKeyMap.convertFingerToKey(self.fingerMap);
 	}
 
 	function updateModels(input, password) {

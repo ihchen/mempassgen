@@ -28,8 +28,9 @@
 				</div>
 			</div>
 			<div id="options">
-				<input type="checkbox" ng-model="pwc.options.shiftMatch" />Shift Match <br />
 				<input type="checkbox" ng-model="pwc.options.includeInput" />Include Input <br />
+				<input type="checkbox" ng-model="pwc.options.shiftMatch" />Shift Match <br />
+				<input type="checkbox" ng-model="pwc.options.closeProx" />Close Proximity <br />
 			</div>
 			<div id="zxcvbnResult">
 				<div id="userInputResult" class="zxcvbn-column" ng-repeat="(key, zxcvbn) in {1: pwc.zxcvbnOnInput, 2: pwc.zxcvbnOnPassword}">
