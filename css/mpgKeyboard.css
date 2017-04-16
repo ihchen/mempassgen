@@ -1,0 +1,71 @@
+mpg-keyboard {
+	background-color: #d3d3d3;
+	padding: 5px;
+
+	display: inline-block;
+	text-align: left;
+}
+
+.keyboard-row {
+	clear: left;
+}
+.key {
+	background-color: white;
+	color: black;
+	border-radius: 2px;
+
+	display: block;
+	float: left;
+	width: 35px;
+	padding-left: 5px;
+	height: 40px;
+	margin: 1px;
+}
+.key.valid:hover {
+	box-shadow: 0px 0px 5px blue;
+	z-index: 10;
+	cursor: pointer;
+}
+.letter {
+	font-size: 1.2em;
+}
+
+/* Special Keys */
+
+.special {
+	display: flex;
+	align-items: center;
+}
+.backspace {
+	width: 75px;
+}
+.tab,.pipe-backslash{
+	width: 55px;
+}
+.caps-lock {
+	width: 65px;
+}
+.enter {
+	width: 87px;
+}
+.left-shift {
+	width: 85px;
+}
+.right-shift {
+	width: 109px;
+}
+
+/* Finger colors */
+
+.lpinky,.rpinky{
+	background-color: #FBE700;
+}
+.lring,.rring{
+	background-color: #00FB00;
+}
+.lmiddle,.rmiddle{
+	background-color: #FBAB00;
+}
+.lindex,.rindex{
+	background-color: #FF682C;
+}
