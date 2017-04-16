@@ -1,11 +1,14 @@
-mpg-keyboard {
+/*
+ * Keyboard
+ */
+
+.keyboard {
 	background-color: #d3d3d3;
 	padding: 5px;
 
 	display: inline-block;
 	text-align: left;
 }
-
 .keyboard-row {
 	clear: left;
 }
@@ -57,15 +60,19 @@ mpg-keyboard {
 
 /* Finger colors */
 
-.lpinky,.rpinky{
+.pinky{
 	background-color: #FBE700;
 }
-.lring,.rring{
+.ring{
 	background-color: #00FB00;
 }
-.lmiddle,.rmiddle{
+.middle{
 	background-color: #FBAB00;
 }
-.lindex,.rindex{
+.index{
 	background-color: #FF682C;
 }
+
+/*
+ * Legend
+ */
