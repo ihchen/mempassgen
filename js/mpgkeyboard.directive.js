@@ -50,22 +50,20 @@ angular.module('MemPassGen')
 				// Add
 				this.fingerMap[newfinger].shiftOn.symbols.push(shiftChar);
 				if(numbers)
-					this.fingerMap[newfinger].shiftOn.numbers.push(notShiftChar);
+					this.fingerMap[newfinger].shiftOff.numbers.push(notShiftChar);
 				else
-					this.fingerMap[newfinger].shiftOn.symbols.push(notShiftChar);
+					this.fingerMap[newfinger].shiftOff.symbols.push(notShiftChar);
 			}
-
-			console.log(this.fingerMap);
 		}
 	}
 
 	function link(scope, element, attrs) {
 		var keys = element.find('mpg-key');
-		var menu = document.querySelector('.menu');
+		var menu = angular.element(element.children()[2]);
 
 		var onKeysClick = function() {
-			menu.firstElementChild.style.display = "none";	//init-menu
-			menu.lastElementChild.style.display = "block";	//real-menu
+			angular.element(menu.children()[0]).css('display', 'none');		//init-menu
+			angular.element(menu.children()[1]).css('display', 'block');	//real-menu
 			keys.off('mouseup');
 		}
 		keys.on('mouseup', onKeysClick);
@@ -82,8 +80,6 @@ angular.module('MemPassGen')
 })
 .directive('mpgKey', function() {
 	function link(scope, element, attrs, ctrls) {
-		scope.fingerClass = attrs.finger.slice(1, attrs.finger.length);
-
 		var keyboard = ctrls[0];
 		var onKeyClick = function() {
 			keyboard.currentKey = element;
