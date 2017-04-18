@@ -1,9 +1,9 @@
 angular.module('MemPassGen')
 .directive('mpgKeyboard', function(FingerKeyMap) {
-	function controller() {
+	function controller($scope, $element) {
 		var self = this;
 
-		this.fingerMap = FingerKeyMap.cloneFingerMap(FingerKeyMap.DEFAULT_FINGER_MAP);
+		this.fingerMap = FingerKeyMap.cloneFingerMap($scope.currentMap);
 		this.currentKey;	//Contains the jqlite element of the key that has been selected
 
 		this.updateFingerMap = function(newfinger) {
@@ -31,6 +31,39 @@ angular.module('MemPassGen')
 			this.fingerMap[newfinger].shiftOn.push(shiftOnChar);
 			this.fingerMap[newfinger].shiftOff.push(shiftOffChar);
 		}
+
+		this.clearFingerMapChanges = function() {
+			this.fingerMap = FingerKeyMap.cloneFingerMap($scope.currentMap);
+			mapColorsToFingerMap(this.fingerMap);
+		}
+
+		function mapColorsToFingerMap(fingerMap) {
+			var keyToFingerMap = getKeyToFingerMap(fingerMap);
+
+			angular.forEach($element.find('mpg-key'), function(mpgkey) {
+				mpgkey = angular.element(mpgkey);
+				var oldfinger = mpgkey.attr('finger');
+				var key = mpgkey.text()[0];
+
+				var newfinger = keyToFingerMap[key];
+				mpgkey.attr('finger', newfinger);
+				mpgkey.removeClass(oldfinger.slice(1, oldfinger.length));
+				mpgkey.addClass(newfinger.slice(1, newfinger.length));
+			});
+		}
+
+		function getKeyToFingerMap(fingerMap) {
+			var keyToFinger = {};
+
+			for(var finger in fingerMap) {
+				var shiftOnArr = fingerMap[finger].shiftOn;	//Only need shifted chars only
+
+				for(var i = 0; i < shiftOnArr.length; i++)
+					keyToFinger[shiftOnArr[i]] = finger;
+			}
+
+			return keyToFinger;
+		}
 	}
 
 	function link(scope, element, attrs) {
@@ -48,7 +81,8 @@ angular.module('MemPassGen')
 	return {
 		restrict: 'E',
 		scope: {
-			save: '&'
+			save: '&',
+			currentMap: '='
 		},
 		templateUrl: '../templates/mpgKeyboard.tmpl.html',
 		controller: controller,
