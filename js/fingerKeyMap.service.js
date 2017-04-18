@@ -195,4 +195,8 @@ angular.module("MemPassGen")
 		}
 		else return undefined;
 	}
+
+	this.cloneFingerMap = function(fingerMap) {
+		return JSON.parse(JSON.stringify(fingerMap));
+	}
 });
