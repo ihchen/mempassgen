@@ -4,7 +4,6 @@ angular.module('MemPassGen')
 
 	self.fingerMap = FingerKeyMap.DEFAULT_FINGER_MAP;
 	self.keyMap = FingerKeyMap.convertFingerToKey(self.fingerMap);
-	self.tempFingerMap = JSON.parse(JSON.stringify(self.fingerMap));
 
 	self.password = '';
 	self.options = FingerKeyMap.DEFAULT_OPTIONS;
@@ -35,7 +34,7 @@ angular.module('MemPassGen')
 	}
 
 	self.loadFingerMap = function(fingerMap) {
-		self.fingerMap = JSON.parse(JSON.stringify(fingerMap));
+		self.fingerMap = FingerKeyMap.cloneFingerMap(fingerMap);
 		self.keyMap = FingerKeyMap.convertFingerToKey(self.fingerMap);
 	}
 
