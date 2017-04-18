@@ -76,3 +76,34 @@
 /*
  * Legend
  */
+
+.legend {
+	margin-bottom: 10px;
+}
+.legend-item {
+	margin-right: 10px;
+
+	display: inline-flex;
+	align-items: center;
+}
+.legend-block {
+	width: 20px;
+	height: 20px;
+
+	display: inline-block;
+	margin-right: 5px;	
+}
+
+/*
+ * Menu
+ */
+
+ .real-menu {
+ 	display: none;
+ }
+ .menu-button-group {
+ 	display: inline-block;
+ }
+ .menu-button {
+ 	width: 135px;
+ }
