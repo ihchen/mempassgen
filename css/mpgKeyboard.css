@@ -101,6 +101,9 @@
  .real-menu {
  	display: none;
  }
+ .menu-save-clear {
+ 	margin-top: 20px;
+ }
  .menu-button-group {
  	display: inline-block;
  }

@@ -87,7 +87,7 @@
 		<div class="menu-label">
 			Change finger for {{ kbc.currentKey.text() }}
 		</div>
-		<div class="menu-content">
+		<div class="menu-customize">
 			<div class="menu-button-group">
 				<button class="menu-button" ng-click="kbc.updateFingerMap('Lpinky')">Left Pinky</button><br />
 				<button class="menu-button" ng-click="kbc.updateFingerMap('Rpinky')">Right Pinky</button>
@@ -104,6 +104,10 @@
 				<button class="menu-button" ng-click="kbc.updateFingerMap('Lindex')">Left Index Finger</button><br />
 				<button class="menu-button" ng-click="kbc.updateFingerMap('Rindex')">Right Index Finger</button>
 			</div class="menu-button-group">
+		</div>
+		<div class="menu-save-clear">
+			<button class="menu-button" ng-click="save({fingerMap:kbc.fingerMap})">Save Changes</button>
+			<button class="menu-button">Clear Changes</button>
 		</div>
 	</div>
 </div>

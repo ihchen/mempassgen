@@ -47,7 +47,9 @@ angular.module('MemPassGen')
 
 	return {
 		restrict: 'E',
-		scope: {},
+		scope: {
+			save: '&'
+		},
 		templateUrl: '../templates/mpgKeyboard.tmpl.html',
 		controller: controller,
 		controllerAs: 'kbc',

@@ -7,8 +7,8 @@ angular.module('MemPassGen')
 
 	self.password = '';
 	self.options = FingerKeyMap.DEFAULT_OPTIONS;
-	self.zxcvbnOnInput = {};
-	self.zxcvbnOnPassword = {};
+	self.zxcvbnOnInput;
+	self.zxcvbnOnPassword;
 
 	var prevInput = '';
 
