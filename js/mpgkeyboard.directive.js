@@ -15,11 +15,7 @@ angular.module('MemPassGen')
 			if(!text[1])
 				shiftOffChar = shiftOnChar.toLowerCase();
 
-			// Change key color
-			this.currentKey.removeClass(oldfinger.slice(1, oldfinger.length));
-			this.currentKey.addClass(newfinger.slice(1, newfinger.length));
-			// Update attribute
-			this.currentKey.attr('finger', newfinger);
+			changeFingerAttr(this.currentKey, oldfinger, newfinger);
 
 			// Update finger map
 			var shiftOnKeys = this.fingerMap[oldfinger].shiftOn;
@@ -37,6 +33,12 @@ angular.module('MemPassGen')
 			mapColorsToFingerMap(this.fingerMap);
 		}
 
+		function changeFingerAttr(element, oldfinger, newfinger) {
+			element.attr('finger', newfinger);
+			element.removeClass(oldfinger.slice(1, oldfinger.length));
+			element.addClass(newfinger.slice(1, newfinger.length));
+		}
+
 		function mapColorsToFingerMap(fingerMap) {
 			var keyToFingerMap = getKeyToFingerMap(fingerMap);
 
@@ -44,11 +46,9 @@ angular.module('MemPassGen')
 				mpgkey = angular.element(mpgkey);
 				var oldfinger = mpgkey.attr('finger');
 				var key = mpgkey.text()[0];
-
 				var newfinger = keyToFingerMap[key];
-				mpgkey.attr('finger', newfinger);
-				mpgkey.removeClass(oldfinger.slice(1, oldfinger.length));
-				mpgkey.addClass(newfinger.slice(1, newfinger.length));
+
+				changeFingerAttr(mpgkey, oldfinger, newfinger);
 			});
 		}
 
