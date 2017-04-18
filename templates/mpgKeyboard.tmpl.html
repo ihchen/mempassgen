@@ -61,7 +61,7 @@
 		<mpg-key finger="Rmiddle" class="key valid letter middle">K</mpg-key>
 		<mpg-key finger="Rring" class="key valid letter ring">L</mpg-key>
 		<mpg-key finger="Rpinky" class="key valid dual pinky">:<br />;</mpg-key>
-		<mpg-key finger="Rpinky" class="key valid dual pinky">'<br />"</mpg-key>
+		<mpg-key finger="Rpinky" class="key valid dual pinky">"<br />'</mpg-key>
 		<div class="key special enter">Enter</div>
 	</div>
 	<div class="keyboard-row">
@@ -107,7 +107,7 @@
 		</div>
 		<div class="menu-save-clear">
 			<button class="menu-button" ng-click="save({fingerMap:kbc.fingerMap})">Save Changes</button>
-			<button class="menu-button">Clear Changes</button>
+			<button class="menu-button" ng-click="kbc.clearFingerMapChanges()">Clear Changes</button>
 		</div>
 	</div>
 </div>
