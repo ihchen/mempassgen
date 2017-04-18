@@ -95,6 +95,10 @@ angular.module('MemPassGen')
 	function link(scope, element, attrs, ctrls) {
 		var keyboard = ctrls[0];
 		var onKeyClick = function() {
+			if(keyboard.currentKey)
+				keyboard.currentKey.removeClass('active');
+			element.addClass('active');
+
 			keyboard.currentKey = element;
 			scope.$apply();
 		}
