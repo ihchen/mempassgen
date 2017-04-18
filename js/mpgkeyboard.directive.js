@@ -48,7 +48,8 @@ angular.module('MemPassGen')
 				var key = mpgkey.text()[0];
 				var newfinger = keyToFingerMap[key];
 
-				changeFingerAttr(mpgkey, oldfinger, newfinger);
+				if(oldfinger != newfinger)
+					changeFingerAttr(mpgkey, oldfinger, newfinger);
 			});
 		}
 
