@@ -1,71 +1,40 @@
 angular.module("MemPassGen")
 .service('FingerKeyMap', function() {
+	// REFACTOR
 	this.DEFAULT_FINGER_MAP = {
 		"Lpinky": {
-			"shiftOn": {
-				"symbols": ["~", "!"],
-				"chars": ["Q","A","Z"] },
-			"shiftOff": {
-				"symbols": ["`"],
-				"numbers": ["1"],
-				"chars": ["q","a","z"] } },
+			"shiftOn": 	["~", "!", "Q", "A", "Z"],
+			"shiftOff": ["`", "1", "q", "a", "z"]
+		},
 		"Lring": {
-			"shiftOn": {
-				"symbols": ["@"],
-				"chars": ["W","S","X"] },
-			"shiftOff": {
-				"symbols": [],
-				"numbers": ["2"],
-				"chars": ["w","s","x"] } },
+			"shiftOn": 	["@", "W", "S", "X"],
+			"shiftOff": ["2", "w", "s", "x"]
+		},
 		"Lmiddle": {
-			"shiftOn": {
-				"symbols": ["#"],
-				"chars": ["E","D","C"] },
-			"shiftOff": {
-				"symbols": [],
-				"numbers": ["3"],
-				"chars": ["e","d","c"] } },
+			"shiftOn": 	["#", "E", "D", "C"],
+			"shiftOff": ["3", "e", "d", "c"]
+		},
 		"Lindex": {
-			"shiftOn": {
-				"symbols": ["$", "%"],
-				"chars": ["R","F","V","T","G","B"] },
-			"shiftOff": {
-				"symbols": [],
-				"numbers": ["4","5"],
-				"chars": ["r","f","v","t","g","b"] } },
+			"shiftOn": 	["$", "%", "R", "F", "V", "T", "G", "B"],
+			"shiftOff": ["4", "5", "r", "f", "v", "t", "g", "b"]
+		},
 		"Rindex": {
-			"shiftOn": {
-				"symbols": ["^","&"],
-				"chars": ["Y","H","N","U","J","M"] },
-			"shiftOff": {
-				"symbols": [],
-				"numbers": ["6","7"],
-				"chars": ["y","h","n","u","j","m"] } },
+			"shiftOn": 	["^", "&", "Y", "H", "N", "U", "J", "M"],
+			"shiftOff": ["6", "7", "y", "h", "n", "u", "j", "m"]
+		},
 		"Rmiddle": {
-			"shiftOn": {
-				"symbols": ["*","<"],
-				"chars": ["I","K"] },
-			"shiftOff": {
-				"symbols": [","],
-				"numbers": ["8"],
-				"chars": ["i","k"] } },
+			"shiftOn": 	["*", "<", "I", "K"],
+			"shiftOff": [",", "8", "i", "k"]
+		},
 		"Rring": {
-			"shiftOn": {
-				"symbols": ["(",">"],
-				"chars": ["O","L"] },
-			"shiftOff": {
-				"symbols": ["."],
-				"numbers": ["9"],
-				"chars": ["o","l"] } },
+			"shiftOn": 	["(", ">", "O", "L"],
+			"shiftOff": [".", "9", "o", "l"]
+		},
 		"Rpinky": {
-			"shiftOn": {
-				"symbols": [")",":","?","_","{","\"","+","}","|"],
-				"chars": ["P"] },
-			"shiftOff": {
-				"symbols": [";","/","-","[","'","=","]","\\"],
-				"numbers": ["0"],
-				"chars": ["p"] } }
-	};
+			"shiftOn": 	[")", ":", "?", "_", "{", "\"", "+", "}", "|", "P"],
+			"shiftOff": [";", "/", "-", "[", "'", "=", "]", "\\", "0", "p"]
+		},
+	}
 
 	var PROXIMITY_MAP = {
 		'A': ['A','Z','S','W','Q'],
@@ -132,25 +101,16 @@ angular.module("MemPassGen")
 		var keyMap = {};
 
 		for(var finger in fingerMap) {
-			if(fingerMap.hasOwnProperty(finger)) {
-				var shiftKeys = fingerMap[finger].shiftOn;
-				var notShiftKeys = fingerMap[finger].shiftOff;
+			var shiftOnKeys = fingerMap[finger].shiftOn;
+			var shiftOffKeys = fingerMap[finger].shiftOff;
 
-				for(var i = 0; i < shiftKeys.chars.length; i++) {
-					keyMap[shiftKeys.chars[i]] = [].concat.call([], 
-						shiftKeys.symbols, 
-						shiftKeys.chars
-					)
-				}
+			for(var i = 0; i < shiftOnKeys.length; i++)
+				if(/[A-Z]/.test(shiftOnKeys[i]))
+					keyMap[shiftOnKeys[i]] = shiftOnKeys.slice();
 
-				for(var i = 0; i < notShiftKeys.chars.length; i++) {
-					keyMap[notShiftKeys.chars[i]] = [].concat.call([],
-						notShiftKeys.symbols,
-						notShiftKeys.numbers,
-						notShiftKeys.chars
-					)
-				}
-			}
+			for(var i = 0; i < shiftOffKeys.length; i++)
+				if(/[a-z]/.test(shiftOffKeys[i]))
+					keyMap[shiftOffKeys[i]] = shiftOffKeys.slice();
 		}
 
 		return keyMap;

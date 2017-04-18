@@ -9,14 +9,11 @@ angular.module('MemPassGen')
 		this.updateFingerMap = function(newfinger) {
 			var oldfinger = this.currentKey.attr('finger');
 			var text = this.currentKey.text();
-			var shiftChar = text[0];
-			var notShiftChar = text[1];
-			var letter = false;
+			var shiftOnChar = text[0];
+			var shiftOffChar = text[1];
 			// If not dual key, then it's a letter
-			if(!text[1]) {
-				notShiftChar = shiftChar.toLowerCase();
-				letter = true;
-			}
+			if(!text[1])
+				shiftOffChar = shiftOnChar.toLowerCase();
 
 			// Change key color
 			this.currentKey.removeClass(oldfinger.slice(1, oldfinger.length));
@@ -24,36 +21,15 @@ angular.module('MemPassGen')
 			// Update attribute
 			this.currentKey.attr('finger', newfinger);
 
-			if(letter) {
-				var shiftChars = this.fingerMap[oldfinger].shiftOn.chars;
-				var notShiftChars = this.fingerMap[oldfinger].shiftOff.chars;
-				
-				// Remove
-				shiftChars.splice(shiftChars.indexOf(shiftChar), 1);
-				notShiftChars.splice(notShiftChars.indexOf(notShiftChar), 1);
-				// Add
-				this.fingerMap[newfinger].shiftOn.chars.push(shiftChar);
-				this.fingerMap[newfinger].shiftOff.chars.push(notShiftChar);
-			}
-			else {
-				var shiftSymbols = this.fingerMap[oldfinger].shiftOn.symbols;
-				var notShiftSymbols = this.fingerMap[oldfinger].shiftOff.symbols;
-				var numbers = false;
-				if(notShiftChar.charCodeAt() >= 48 && notShiftChar.charCodeAt() <= 57) {
-					notShiftSymbols = this.fingerMap[oldfinger].shiftOff.numbers;
-					numbers = true;
-				}
-
-				// Remove
-				shiftSymbols.splice(shiftSymbols.indexOf(shiftChar), 1);
-				notShiftSymbols.splice(notShiftSymbols.indexOf(notShiftChar), 1);
-				// Add
-				this.fingerMap[newfinger].shiftOn.symbols.push(shiftChar);
-				if(numbers)
-					this.fingerMap[newfinger].shiftOff.numbers.push(notShiftChar);
-				else
-					this.fingerMap[newfinger].shiftOff.symbols.push(notShiftChar);
-			}
+			// Update finger map
+			var shiftOnKeys = this.fingerMap[oldfinger].shiftOn;
+			var shiftOffKeys = this.fingerMap[oldfinger].shiftOff;
+			// Remove from old finger
+			shiftOnKeys.splice(shiftOnKeys.indexOf(shiftOnChar), 1);
+			shiftOffKeys.splice(shiftOffKeys.indexOf(shiftOffChar), 1);
+			// Add to new finger
+			this.fingerMap[newfinger].shiftOn.push(shiftOnChar);
+			this.fingerMap[newfinger].shiftOff.push(shiftOffChar);
 		}
 	}
 
