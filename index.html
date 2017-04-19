@@ -2,57 +2,76 @@
 <html>
 <head>
 	<title>MemPassGen</title>
+	<link rel="stylesheet" href="css/bootstrap.css" />
 	<link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" href="css/mpgKeyboard.css" />
+	<style>
+	[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+		display: none !important;
+	}
+	</style>
 </head>
 <body ng-app="MemPassGen" ng-controller="PasswordController as pwc">
-	<header id="header">
-		<h1 id="title">MemPassGen</h1>
-		<p id="description">
-			MemPassGen takes your input and converts the inputs into near by characters and symbols based on where your fingers are on the keyboard. This allows you to create a more secure password that should feel the same as typing your original input.
-		</p>
-	</header>
-	<div id="content">
-		<div id="mainFunctionality">
-			<div id="userInput">
-				<input type="text" ng-model="pwc.userInput" ng-change="pwc.updatePassword(pwc.userInput)" />
-				<button type="button" ng-click="pwc.generatePassword(pwc.userInput)">Generate Another Password</button>
-			</div>
-			<div id="passwordResult">
-				<span ng-bind="pwc.password"></span>
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron">
+				<h1>MemPassGen</h1>
+				<p>
+					MemPassGen takes your input and converts the inputs into near by characters and symbols based on where your fingers are on the keyboard. This allows you to create a more secure password that should feel the same as typing your original input.
+				</p>
 			</div>
 		</div>
-		<div id="options">
-			<input type="checkbox" ng-model="pwc.options.includeInput" />Include Input <br />
-			<input type="checkbox" ng-model="pwc.options.shiftMatch" />Shift Match <br />
-			<input type="checkbox" ng-model="pwc.options.closeProx" />Close Proximity <br />
+		<div class="row">
+			<h1>Generate A Password</h1>
+			<h2>
+				<div class="MemPassGen-component">
+					Input:<br />
+					<input class="main-input" type="text" ng-model="pwc.userInput" ng-change="pwc.updatePassword(pwc.userInput)" />
+				</div>
+				<div class="MemPassGen-component">
+					==<button type="button" ng-click="pwc.generatePassword(pwc.userInput)">Generate</button>=&gt;
+				</div>
+				<div class="MemPassGen-component">
+					Result:<br />
+					<input class="main-result" ng-model="pwc.password" readonly />
+				</div>
+			</h2>
 		</div>
-		<div id="zxcvbnResult">
-			<div id="userInputResult" class="zxcvbn-column" ng-repeat="(key, zxcvbn) in {1: pwc.zxcvbnOnInput, 2: pwc.zxcvbnOnPassword}">
-				<ul ng-show="pwc.userInput">
-					<li>Guesses: {{zxcvbn.guesses}}</li>
-					<ul>
-						Guess times:
-						<li>100/hour: {{zxcvbn.crack_times_display.online_throttling_100_per_hour}}</li>
-						<li>10/second: {{zxcvbn.crack_times_display.online_no_throttling_10_per_second}}</li>
-						<li>10k/second: {{zxcvbn.crack_times_display.offline_slow_hashing_1e4_per_second}}</li>
-						<li>10B/second: {{zxcvbn.crack_times_display.offline_fast_hashing_1e10_per_second}}</li>
+		<div class="row">
+			<h2>zxcvbn Result:</h2>
+			<div ng-cloak>
+				<div id="userInputResult" class="col-sm-1" ng-repeat="(key, zxcvbn) in {1: pwc.zxcvbnOnInput, 2: pwc.zxcvbnOnPassword}">
+					<ul class="zxcvbn-result" ng-show="pwc.userInput">
+						<li>Guesses: {{zxcvbn.guesses}}</li>
+						<ul>
+							Guess times:
+							<li>100/hour: {{zxcvbn.crack_times_display.online_throttling_100_per_hour}}</li>
+							<li>10/second: {{zxcvbn.crack_times_display.online_no_throttling_10_per_second}}</li>
+							<li>10k/second: {{zxcvbn.crack_times_display.offline_slow_hashing_1e4_per_second}}</li>
+							<li>10B/second: {{zxcvbn.crack_times_display.offline_fast_hashing_1e10_per_second}}</li>
+						</ul>
+						<li>Score: {{zxcvbn.score}}</li>
 					</ul>
-					<li>Score: {{zxcvbn.score}}</li>
-					<!-- <li>Warning: {{zxcvbn.feedback.warning}}</li> -->
-					<!-- <li>Suggestions: {{zxcvbn.feedback.suggestions}}</li> -->
-					<!-- <li>Runtime: {{zxcvbn.calc_time}}</li> -->
-				</ul>
-				<!-- <div ng-repeat="seq in zxcvbn.sequence">
-				<ul>
-					<li ng-repeat="(key, value) in seq">
-						{{key}}: {{value}}
-					</li>
-				</ul>
-				</div> -->
+				</div>
 			</div>
 		</div>
-		<mpg-keyboard save="pwc.loadFingerMap(fingerMap)" current-map="pwc.fingerMap"></mpg-keyboard>
+		<div class="row">
+			<h2>Options</h2>
+			<div class="options">
+				<input type="checkbox" ng-model="pwc.options.includeInput" />Include Input (if unchecked, the resulting character will never contain the one you inputted)<br />
+				<input type="checkbox" ng-model="pwc.options.shiftMatch" />Shift Match (resulting character will match whether or not you used shift) <br />
+				<input type="checkbox" ng-model="pwc.options.closeProx" />Close Proximity (Only use characters where the keys are touching on the keyboard)<br />
+			</div>
+		</div>
+		<div class="row">
+			<h2>Customize Your Finger Placement</h2>
+			<mpg-keyboard save="pwc.loadFingerMap(fingerMap)" current-map="pwc.fingerMap"></mpg-keyboard>
+		</div>
+		<div class="row">
+			<br />
+			<br />
+			<br />
+		</div>
 	</div>
 
 	<script src="lib/angular.js"></script>

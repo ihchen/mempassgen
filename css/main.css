@@ -1,7 +1,22 @@
 body {
+	background-color: #F5F5F5;
+
 	text-align: center;
 }
-.zxcvbn-column {
+.MemPassGen-component {
 	display: inline-block;
-	width: 50%;
+}
+.main-input {
+	/*font-size: 1.5em;*/
+	text-align: center;
+}
+.main-result {
+	text-align: center;
+}
+.zxcvbn-result {
+	text-align: left;
+}
+.options {
+	margin: auto;
+	text-align: left;
 }
