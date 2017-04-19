@@ -19,7 +19,7 @@
 
 	display: block;
 	float: left;
-	width: 35px;
+	width: 40px;
 	padding-left: 5px;
 	height: 40px;
 	margin: 1px;
@@ -43,22 +43,22 @@
 	align-items: center;
 }
 .backspace {
-	width: 75px;
+	width: 80px;
 }
 .tab,.pipe-backslash{
-	width: 55px;
+	width: 60px;
 }
 .caps-lock {
-	width: 65px;
+	width: 70px;
 }
 .enter {
-	width: 87px;
+	width: 92px;
 }
 .left-shift {
-	width: 85px;
+	width: 90px;
 }
 .right-shift {
-	width: 109px;
+	width: 114px;
 }
 
 /* Finger colors */
@@ -111,5 +111,5 @@
  	display: inline-block;
  }
  .menu-button {
- 	width: 135px;
+ 	width: 150px;
  }
