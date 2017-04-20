@@ -55,6 +55,6 @@ footer {
 	text-decoration: underline;
 	color: inherit;
 }
-.external-link:hover {
+.external-link:hover,.external-link:focus,.external-link:active {
 	color: inherit;
 }
