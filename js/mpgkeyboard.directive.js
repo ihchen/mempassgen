@@ -106,8 +106,10 @@ angular.module('MemPassGen')
 	}
 
 	return {
-		restrict: 'AE',
+		restrict: 'E',
+		transclude: true,
 		scope: {},
+		templateUrl: '../templates/mpgKey.tmpl.html',
 		require: ['^mpgKeyboard'],
 		link: link
 	}
