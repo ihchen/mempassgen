@@ -4,6 +4,8 @@
 
 .keyboard {
 	background-color: #d3d3d3;
+	width: 95%;
+	max-width: 768px;
 	padding: 5px;
 
 	display: inline-block;
@@ -17,12 +19,22 @@
 	color: black;
 	border-radius: 2px;
 
+	position: relative;
 	display: block;
 	float: left;
-	width: 40px;
+	width: 6.37%;		/* width+margin=(1/15)*keyboard-width */
+	margin: .16%;
+}
+.key:before {
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+.key-contents {
 	padding-left: 5px;
-	height: 40px;
-	margin: 1px;
+
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
 }
 .key.valid:hover {
 	box-shadow: 0px 0px 5px blue;
@@ -38,28 +50,22 @@
 
 /* Special Keys */
 
-.special {
+.special .key-contents {
 	display: flex;
 	align-items: center;
 }
-.backspace {
-	width: 80px;
-}
-.tab,.pipe-backslash{
-	width: 60px;
-}
-.caps-lock {
-	width: 70px;
-}
-.enter {
-	width: 92px;
-}
-.left-shift {
-	width: 90px;
-}
-.right-shift {
-	width: 114px;
-}
+.backspace { width: 12.71%; }
+.backspace:before { padding-top: 50.13%; }
+.tab,.pipe-backslash { width: 9.54%; }
+.tab:before,.pipe-backslash:before { padding-top: 66.78%; }
+.caps-lock { width: 11.14%; }
+.caps-lock:before { padding-top: 57.19%; }
+.enter { width: 14.63%; }
+.enter:before { padding-top: 43.55%; }
+.left-shift { width: 14.34%; }
+.left-shift:before { padding-top: 44.42%; }
+.right-shift { width: 18.12%; }
+.right-shift:before { padding-top: 35.16%; }
 
 /* Finger colors */
 
