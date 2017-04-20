@@ -1,22 +1,59 @@
-body {
-	background-color: #F5F5F5;
+header {
+	background-color: #005b5b;
+	color: white;
+}
+header h1 {
+	font-size: 3em;
+}
+
+.main-input {
+	font-size: 2em;
 
 	text-align: center;
-}
-.MemPassGen-component {
-	display: inline-block;
-}
-.main-input {
-	/*font-size: 1.5em;*/
-	text-align: center;
-}
-.main-result {
-	text-align: center;
-}
-.zxcvbn-result {
-	text-align: left;
+	width: 768px;
+	max-width: 100%;
+	margin: 1em 0;
 }
 .options {
-	margin: auto;
+	margin-bottom: .5em;
+}
+.option {
+	padding: 0 1em;
+}
+.option input {
+	margin-right: 5px;
+	cursor: pointer;
+}
+.option span {
+	cursor: default;
+}
+
+.zxcvbn {
+	background-color: #f2f2f2;
+	padding-bottom: 2em;
+}
+.zxcvbn-main-result {
+	font-weight: bold;
+}
+.zxcvbn-details {
 	text-align: left;
+}
+.zxcvbn-show-details {
+	cursor: pointer;
+}
+
+footer {
+	background-color: #02008e;
+	color: white;
+	border-top: 1px solid white;
+}
+footer a {
+	color: white;
+}
+footer a:hover {
+	color: white;
+}
+
+.center {
+	text-align: center;
 }
