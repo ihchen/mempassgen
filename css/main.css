@@ -43,17 +43,18 @@ header h1 {
 }
 
 footer {
-	background-color: #02008e;
+	background-color: #4f4f4f;
 	color: white;
 	border-top: 1px solid white;
-}
-footer a {
-	color: white;
-}
-footer a:hover {
-	color: white;
 }
 
 .center {
 	text-align: center;
+}
+.external-link {
+	text-decoration: underline;
+	color: inherit;
+}
+.external-link:hover {
+	color: inherit;
 }
