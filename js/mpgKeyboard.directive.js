@@ -85,7 +85,7 @@ angular.module('MemPassGen')
 			save: '&',
 			currentMap: '='
 		},
-		templateUrl: 'templates/mpgKeyboard.tmpl.html',
+		templateUrl: '/mempassgen/templates/mpgKeyboard.tmpl.html',
 		controller: controller,
 		controllerAs: 'kbc',
 		link: link
