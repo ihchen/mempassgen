@@ -27,13 +27,13 @@
 				<input class="main-input" type="text" placeholder="Enter Input" ng-model="pwc.userInput" ng-change="pwc.updatePassword(pwc.userInput)" />
 			</div>
 			<div class="col-xs-2 options">
-				<span class="option">
+				<span class="option" title="Include your input in the list of possible character generations">
 					<input type="checkbox" ng-model="pwc.options.includeInput" /><span>Include Input</span>
 				</span>
-				<span class="option">
+				<span class="option" title="If you hold down shift for your input, the generated character will require shift to be held down">
 					<input type="checkbox" ng-model="pwc.options.shiftMatch" /><span>Shift Match</span>
 				</span>
-				<span class="option">
+				<span class="option" title="Generated characters have to be touching the key you press on a qwerty keyboard">
 					<input type="checkbox" ng-model="pwc.options.closeProx" /><span>Close Proximity</span>
 				</span>
 			</div>
