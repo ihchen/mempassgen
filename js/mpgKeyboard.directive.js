@@ -1,5 +1,5 @@
 angular.module('MemPassGen')
-.directive('mpgKeyboard', function(FingerKeyMap) {
+.directive('mpgKeyboard', function(FingerKeyMap, $location) {
 	function controller($scope, $element) {
 		var self = this;
 
@@ -85,7 +85,7 @@ angular.module('MemPassGen')
 			save: '&',
 			currentMap: '='
 		},
-		templateUrl: '/mempassgen/templates/mpgKeyboard.tmpl.html',
+		templateUrl: $location.absUrl()+'templates/mpgKeyboard.tmpl.html',
 		controller: controller,
 		controllerAs: 'kbc',
 		link: link
